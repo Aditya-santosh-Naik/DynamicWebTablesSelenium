@@ -1,0 +1,5 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.test.defaultConfig": "default",
+  "maven.executable.preferMavenWrapper": false
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Dynamic Web Table Demo</title>
+<style>body{font-family:Arial;margin:35px;background:#f4f6f9}main{background:white;padding:24px;border-radius:10px;max-width:900px;margin:auto}input,button{padding:9px;margin:4px}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #bbb;padding:10px;text-align:left}th{background:#23416b;color:white}button{cursor:pointer}.status{font-weight:bold}</style></head>
+<body><main><h1>Dynamic Web Table Demo</h1><p>Sample employee records for Selenium testing.</p>
+<label>Name <input id="name" placeholder="Employee name"></label><label>Role <input id="role" placeholder="Role"></label><button id="addBtn" onclick="addRow()">Add Row</button>
+<br><label>Search <input id="search" placeholder="Search employees" oninput="filterRows()"></label>
+<table id="employeeTable"><thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Actions</th></tr></thead>
+<tbody id="tableBody"><tr><td>101</td><td>Asha</td><td>Tester</td><td><button onclick="editRow(this)">Edit</button><button onclick="deleteRow(this)">Delete</button></td></tr>
+<tr><td>102</td><td>Ravi</td><td>Developer</td><td><button onclick="editRow(this)">Edit</button><button onclick="deleteRow(this)">Delete</button></td></tr>
+<tr><td>103</td><td>Meena</td><td>Analyst</td><td><button onclick="editRow(this)">Edit</button><button onclick="deleteRow(this)">Delete</button></td></tr></tbody></table>
+<p id="status" class="status" aria-live="polite">Ready</p></main>
+<script>
+let nextId=104;
+function addRow(){const n=document.getElementById('name').value.trim(),r=document.getElementById('role').value.trim();if(!n||!r){document.getElementById('status').textContent='Name and role are required';return;}
+const tr=document.createElement('tr');tr.innerHTML='<td>'+nextId+++'</td><td></td><td></td><td><button onclick="editRow(this)">Edit</button><button onclick="deleteRow(this)">Delete</button></td>';tr.cells[1].textContent=n;tr.cells[2].textContent=r;document.getElementById('tableBody').appendChild(tr);document.getElementById('status').textContent='Row added';document.getElementById('name').value='';document.getElementById('role').value='';filterRows();}
+function deleteRow(b){b.closest('tr').remove();document.getElementById('status').textContent='Row deleted';}
+function editRow(b){const tr=b.closest('tr'),n=prompt('Enter updated name',tr.cells[1].textContent);if(n!==null&&n.trim()){tr.cells[1].textContent=n.trim();document.getElementById('status').textContent='Row updated';}}
+function filterRows(){const q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('#tableBody tr').forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?'':'none');}
+</script></body></html>
